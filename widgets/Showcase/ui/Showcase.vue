@@ -1,21 +1,21 @@
 <template>
-  <h1>{{ showcase.name }}</h1>
-  <Slides v-if="showcase.slides" :slides="showcase.slides" />
-<!--  <Collections v-if="showcase.collections" :collections="showcase.collections" /> -->
+  <div v-if="!isPending(status) && showcase">
+    <h1>{{ showcase.name }}</h1>
+    <Slides v-if="showcase.slides" :slides="showcase.slides" />
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { useShowcase } from '../model/Showcase';
-import Slides from '~/widgets/Showcase/ui/Slides.vue';
-import Collections from '~/widgets/Showcase/ui/Collections.vue';
+import { useShowcase } from '../model/useShowcase';
+import Slides from '../ui/Slides.vue';
 
 const props = defineProps<{
   name: string,
 }>();
 
-const { showcase } = useShowcase(props.name);
+const { showcase, status } = useShowcase(props.name);
 
 useSeoMeta({
-  title: () => toValue(showcase).name,
+  title: () => toValue(showcase)?.name,
 });
 </script>

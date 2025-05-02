@@ -1,5 +1,3 @@
-import { apiFetch } from '#shared/api/apiFetch';
-
 const DICTIONARIES = [
   'countries',
   'genres',
@@ -46,17 +44,18 @@ const merge = <T = unknown>(data: unknown, dict: DictType): T => {
 
 export type DictType = Record<string, { oid: string }[]>;
 
-export const useDict = defineStore('Dict', () => {
-  const data = reactive(DICTIONARIES.map(name => apiFetch<Array<{ oid: string }>>(`/metadata/${name}`)));
+const useDict = defineStore('Dict', () => {
+  const data = reactive(DICTIONARIES.map(name => useAPI<Array<{ oid: string }>>(`/metadata/${name}`)));
 
   const dict = computed<DictType>(() => {
     const res: DictType = {};
-    data
-      .map(el => el.data)
-      .map(el => toValue(el))
-      .map(el => Array.isArray(el) && el.length && [el[0].oid.split(':')[0], el] || [null, el])
-      .filter(el => el[0])
-      .forEach(([key, value]) => (res[key] = value));
+    data.forEach((el) => {
+      const val = toValue(el.data);
+      const key = (Array.isArray(val) && val.length) ? val[0].oid.split(':')[0] : null;
+      if (val && key) {
+        res[key] = val;
+      }
+    });
 
     return res;
   });
@@ -67,3 +66,5 @@ export const useDict = defineStore('Dict', () => {
     merge,
   };
 });
+
+export default useDict;

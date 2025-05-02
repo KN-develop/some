@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { CollectionType } from '~/widgets/Showcase/model/Collection';
+import type { CollectionType } from '../model/Collection';
 
 defineProps<{
   collections: CollectionType[],

@@ -3,5 +3,5 @@
 </template>
 
 <script lang="ts" setup>
-import Showcase from '~/widgets/Showcase/ui/Showcase.vue';
+import { Showcase } from '~/widgets/Showcase';
 </script>

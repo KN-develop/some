@@ -1,8 +1,6 @@
 import type { MaybeRefOrGetter } from 'vue';
-import type { CollectionType } from '~/widgets/Showcase/model/Collection';
-import type { SlideType } from '~/widgets/Showcase/model/Slide';
-import { useDict } from '~/composables/useDict';
-import { apiFetch } from '#shared/api/apiFetch';
+import type { CollectionType } from './Collection';
+import type { SlideType } from './Slide';
 
 export type ShowcaseResourceType = {
   oid: string,
@@ -14,11 +12,12 @@ export type ShowcaseResourceType = {
 export const useShowcase = (name: MaybeRefOrGetter<string>) => {
   const { dict } = storeToRefs(useDict());
 
-  const { data } = apiFetch(() => `/showcases/showcases/${toValue(name)}`);
+  const { data, status } = useAPI(() => `/showcases/showcases/${toValue(name)}`);
 
   const showcase = computed(() => useDict().merge<ShowcaseResourceType>(toValue(data), toValue(dict)));
 
   return {
     showcase,
+    status,
   };
 };

@@ -1,7 +1,7 @@
 <template>
   <section :class="$style.slides">
     <article v-for="item in slides" :key="item.oid" :class="$style.item">
-      <NuxtLink :to="`/`" :class="$style.link" :title="item.title.title" />
+      <NuxtLink :to="`/film/${item.oid}`" :class="$style.link" :title="item.title.title" />
       <div :class="$style.image">
         <img :src="getImgUrl(item.title.assets[0]?.resize_url)" :alt="item.title.title">
       </div>
@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { SlideType } from '~/widgets/Showcase/model/Slide';
+import type { SlideType } from '../model/Slide';
 
 const SIZE = 720;
 const getImgUrl = (url: string) => url.replace('{w}', String(SIZE)).replace('{h}', String(SIZE));

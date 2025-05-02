@@ -1,6 +1,7 @@
 <template>
-  <h1>Коллекция</h1>
+  <h1>Фильм</h1>
   <div>{{ route.params.id }}</div>
+  <NuxtLink to="/">Home</NuxtLink>
 </template>
 
 <script lang="ts" setup>
