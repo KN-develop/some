@@ -10,12 +10,9 @@ export type ShowcaseResourceType = {
 };
 
 export const useShowcase = (name: MaybeRefOrGetter<string>) => {
-  const { dict } = storeToRefs(useDict());
-
-  const { data, status } = useAPI(() => `/showcases/showcases/${toValue(name)}`);
-
-  const showcase = computed(() => useDict().merge<ShowcaseResourceType>(toValue(data), toValue(dict)));
-
+  const { data: showcase, status } = useAPI(
+    () => `/showcases/showcases/${toValue(name)}`,
+  );
   return {
     showcase,
     status,

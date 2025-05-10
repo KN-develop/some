@@ -1,7 +1,9 @@
 <template>
-  <h1>Фильм</h1>
+  <h1 class="font-semibold text-2xl mb-8">
+    Фильм
+  </h1>
   <div>{{ route.params.id }}</div>
-  <NuxtLink to="/">Home</NuxtLink>
+  <ULink to="/">Home</ULink>
 </template>
 
 <script lang="ts" setup>

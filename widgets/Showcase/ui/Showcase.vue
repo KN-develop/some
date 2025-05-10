@@ -1,6 +1,8 @@
 <template>
   <div v-if="!isPending(status) && showcase">
-    <h1>{{ showcase.name }}</h1>
+    <h1 class="font-semibold text-2xl mb-8">
+      {{ showcase.name }}
+    </h1>
     <Slides v-if="showcase.slides" :slides="showcase.slides" />
   </div>
 </template>

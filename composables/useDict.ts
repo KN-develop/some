@@ -60,8 +60,11 @@ const useDict = defineStore('Dict', () => {
     return res;
   });
 
+  const pending = computed(() => data.some(el => toValue(el.status) === 'pending'));
+
   return {
     dict,
+    pending,
 
     merge,
   };
